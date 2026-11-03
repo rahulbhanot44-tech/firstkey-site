@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Get FirstKey</title>
+<meta name="description" content="Download FirstKey for iPhone or Android.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Zilla+Slab:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+  .get { padding-block: 56px 72px; }
+  .get .wrap { display: grid; gap: 18px; max-width: 560px; }
+  .get .draw { width: 64px; height: 64px; }
+  .get p { color: var(--muted); font-size: 1.1rem; }
+  .stores { display: flex; flex-wrap: wrap; gap: 12px; }
+</style>
+<script>
+  // Fill these in once the app is live in each store. Until then the page shows "coming soon".
+  const APP_STORE = '';
+  const GOOGLE_PLAY = '';
+  const ua = navigator.userAgent || '';
+  const ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && 'ontouchend' in document);
+  const android = /Android/.test(ua);
+  if (ios && APP_STORE) location.replace(APP_STORE);
+  else if (android && GOOGLE_PLAY) location.replace(GOOGLE_PLAY);
+</script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="FirstKey home">
+      <span class="draw"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M6 22L24 7l18 15"/><path class="f" d="M10 19v23h28V19"/><rect x="20" y="28" width="8" height="14"/><rect x="14" y="23" width="5" height="5"/><rect x="29" y="23" width="5" height="5"/></svg></span><span>FirstKey</span>
+    </a>
+  </div>
+</header>
+<main class="get">
+  <div class="wrap">
+    <span class="draw"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><rect class="f" x="4" y="10" width="8" height="30"/><path d="M12 22h16a6 6 0 0 1 6 6v4"/><path d="M20 22v-6M15 14h10"/><path d="M34 36v2M31 41l-1 2M37 41l1 2"/></svg></span>
+    <h1>Get FirstKey</h1>
+    <p id="msg">FirstKey is coming soon to iPhone and Android. Free for homeowners.</p>
+    <div class="stores" id="stores" hidden>
+      <a class="btn solid" id="ios" href="#">Download on the App Store</a>
+      <a class="btn" id="android" href="#">Get it on Google Play</a>
+    </div>
+    <p><a href="./">See what FirstKey does</a></p>
+  </div>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <nav aria-label="Site"><a href="./">Home</a><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms of use</a></nav>
+    <p>© 2026 FirstKey · Made in Ontario</p>
+  </div>
+</footer>
+<script>
+  if (APP_STORE || GOOGLE_PLAY) {
+    document.getElementById('msg').textContent = 'Free for homeowners. Pick your phone:';
+    document.getElementById('stores').hidden = false;
+    const i = document.getElementById('ios'), a = document.getElementById('android');
+    if (APP_STORE) i.href = APP_STORE; else i.hidden = true;
+    if (GOOGLE_PLAY) a.href = GOOGLE_PLAY; else a.hidden = true;
+  }
+</script>
+</body>
+</html>
