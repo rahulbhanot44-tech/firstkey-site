@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FirstKey</title>
+<meta name="description" content="FirstKey reminds Ontario homeowners what their home needs and when, keeps every record in one place, and helps when something breaks. Free for homeowners.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Zilla+Slab:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+  /* Home page only. */
+  .hero .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 32px; align-items: center; padding-block: 56px 48px; }
+  .hero .lead { display: grid; gap: 18px; }
+  .hero p.sub { font-size: 1.2rem; color: var(--muted); max-width: 34ch; }
+  .hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero .soon { color: var(--muted); font-size: 0.98rem; }
+  .tag-art { width: 100%; max-width: 440px; justify-self: center; height: auto; }
+  .tag-art .tag { fill: var(--tag); }
+  .tag-art .tag-edge { fill: none; stroke: var(--tag-ink); stroke-opacity: 0.25; stroke-width: 2; }
+  .tag-art .hole { fill: var(--paper); stroke: var(--tag-ink); stroke-opacity: 0.35; stroke-width: 2; }
+  .tag-art .cord { fill: none; stroke: var(--spruce); stroke-width: 3; stroke-linecap: round; }
+  .tag-art .ring { fill: none; stroke: var(--muted); stroke-width: 6; }
+  .tag-art .key { fill: var(--spruce-soft); stroke: var(--spruce); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+  .tag-art .big { font-family: var(--display); font-weight: 700; font-size: 40px; fill: var(--tag-ink); }
+  .tag-art .small { font-family: var(--display); font-weight: 700; font-size: 24px; fill: var(--tag-ink); fill-opacity: 0.78; }
+  .tag-art .mini { font-family: var(--body); font-size: 14px; fill: var(--tag-ink); fill-opacity: 0.7; }
+  .tag-art .tap * { fill: none; stroke: var(--tag-ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  @media (prefers-reduced-motion: no-preference) {
+    .tag-art .swing { transform-origin: 96px 62px; animation: swing 2.4s ease-out 0.2s 1 both; }
+    @keyframes swing { 0% { transform: rotate(-9deg); } 35% { transform: rotate(5deg); } 65% { transform: rotate(-2deg); } 100% { transform: rotate(0deg); } }
+  }
+
+  section { scroll-margin-top: 12px; }
+  .band { background: var(--mist); }
+  .block { padding-block: 56px; display: grid; gap: 28px; }
+  .block > header { display: grid; gap: 10px; max-width: 60ch; }
+  .block > header p { color: var(--muted); font-size: 1.1rem; }
+
+  .features { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 32px; }
+  .feature { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 4px 16px; align-items: start; }
+  .feature .draw { width: 52px; height: 52px; grid-row: span 2; }
+  .feature p { color: var(--muted); }
+
+  .seasons { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .season { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 12px; align-content: start; }
+  .season h3 { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .season h3 small { font-family: var(--body); font-weight: 400; font-size: 0.85rem; color: var(--muted); }
+  .season ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .season li { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 10px; align-items: center; }
+  .season li .draw { width: 36px; height: 36px; }
+  .season li b { display: block; font-weight: 700; line-height: 1.3; }
+  .season li span { color: var(--muted); font-size: 0.92rem; }
+  .when { display: inline-block; background: var(--tag); color: var(--tag-ink); border-radius: 6px; padding: 0 7px; font-weight: 700; font-size: 0.85rem; }
+
+  .tarion { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; counter-reset: form; }
+  .tarion li { position: relative; padding: 46px 18px 0 0; display: grid; gap: 4px; counter-increment: form; }
+  .tarion li::before { content: counter(form); position: absolute; top: 0; left: 0; width: 32px; height: 32px; border-radius: 50%; background: var(--spruce); color: var(--on-spruce); display: grid; place-items: center; font-weight: 700; z-index: 1; }
+  .tarion li::after { content: ""; position: absolute; top: 15px; left: 32px; right: 0; border-top: 2px dashed var(--line); }
+  .tarion li:last-child::after { display: none; }
+  .tarion p { color: var(--muted); }
+
+  .split { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+  .who { display: grid; gap: 12px; align-content: start; }
+  .who .draw { width: 48px; height: 48px; }
+  .who ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; color: var(--muted); }
+  .who li::marker { color: var(--spruce); }
+  .join { background: var(--spruce); color: var(--on-spruce); border-radius: 14px; padding: 20px 22px; display: grid; gap: 6px; }
+  .join h3 { color: var(--on-spruce); }
+
+  .sos { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+  .sos .alert { background: var(--alert-soft); border-radius: 14px; padding: 18px 20px; display: grid; gap: 6px; }
+  .sos .alert h3 { color: var(--alert); }
+
+  .promise { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 32px; }
+  .promise li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 12px; align-items: start; }
+  .promise li::before { content: ""; width: 22px; height: 22px; margin-top: 3px; border-radius: 50%; background: var(--spruce-soft); border: 2px solid var(--spruce);
+    -webkit-mask: none; box-shadow: inset 0 0 0 4px var(--spruce-soft); }
+
+  .faq { display: grid; gap: 10px; max-width: 70ch; }
+  .faq details { border: 1px solid var(--line); border-radius: 12px; background: var(--paper); padding: 0 18px; }
+  .faq summary { cursor: pointer; font-weight: 700; padding: 14px 0; list-style-position: outside; }
+  .faq details p { padding-bottom: 16px; color: var(--muted); }
+  .faq details[open] summary { color: var(--spruce); }
+
+  @media (max-width: 900px) {
+    .features, .split { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .seasons { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 680px) {
+    .hero .wrap { grid-template-columns: minmax(0, 1fr); padding-block: 36px 32px; }
+    .tag-art { max-width: 340px; }
+    .features, .split, .seasons, .sos, .promise { grid-template-columns: minmax(0, 1fr); }
+    .tarion { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .tarion li { padding: 0 0 0 48px; min-height: 32px; }
+    .tarion li::after { display: none; }
+    .block { padding-block: 44px; }
+  }
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="FirstKey home">
+      <span class="draw" data-draw="house"></span><span>FirstKey</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#features">What it does</a>
+      <a href="#new-homes">New homes</a>
+      <a href="#rentals">Rentals and pros</a>
+      <a href="#help">Help</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="lead">
+        <h1>Home maintenance, on time, made for Ontario.</h1>
+        <p class="sub">FirstKey tells you what your home needs and when, keeps every bill and warranty in one place, and helps when something breaks.</p>
+        <div class="ctas">
+          <a class="btn solid" href="#features">See what it does</a>
+          <a class="btn" href="#rentals">I'm a landlord or a pro</a>
+        </div>
+        <p class="soon">Free for homeowners. Coming soon to iPhone and Android.</p>
+      </div>
+
+      <svg class="tag-art" viewBox="0 0 410 320" role="img" aria-label="A yellow key tag on a key ring. It reads: Reminder. Taps off, October 20, before the frost.">
+        <circle class="ring" cx="96" cy="62" r="34"/>
+        <g class="swing">
+          <g transform="translate(70 94) rotate(18)">
+            <rect class="key" x="-6" y="38" width="12" height="86" rx="3"/>
+            <path class="key" d="M6 96h13v9H6M6 110h9v9H6"/>
+            <circle class="key" cx="0" cy="20" r="20"/>
+            <circle class="hole" cx="0" cy="20" r="6"/>
+          </g>
+          <path class="cord" d="M124 78 C160 104 158 176 170 216"/>
+          <g transform="translate(128 120) rotate(-7)">
+            <path class="tag" d="M0 44 L42 2 H226 a16 16 0 0 1 16 16 V184 a16 16 0 0 1 -16 16 H42 L0 158 Z"/>
+            <path class="tag-edge" d="M8 47 L45 10 H224 a10 10 0 0 1 10 10 V182 a10 10 0 0 1 -10 10 H45 L8 155 Z"/>
+            <circle class="hole" cx="30" cy="101" r="11"/>
+            <text class="mini" x="60" y="54">Reminder</text>
+            <text class="big" x="58" y="100">Taps off</text>
+            <text class="small" x="60" y="134">Oct 20</text>
+            <text class="mini" x="60" y="156">Before the frost</text>
+            <g class="tap" transform="translate(176 132) scale(1.1)">
+              <rect x="4" y="10" width="8" height="30"/><path d="M12 22h16a6 6 0 0 1 6 6v4"/><path d="M20 22v-6M15 14h10"/><path d="M34 36v2M31 41l-1 2M37 41l1 2"/>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section id="features" class="band">
+    <div class="wrap block">
+      <header>
+        <h2>What FirstKey does</h2>
+        <p>Everything about your home in one app, written in plain language.</p>
+      </header>
+      <div class="features">
+        <div class="feature">
+          <span class="draw" data-draw="calendar"></span>
+          <h3>Reminders at the right time</h3>
+          <p>Pick what your home has. FirstKey sets the dates for Ontario's seasons, like outdoor taps off before the frost.</p>
+        </div>
+        <div class="feature">
+          <span class="draw" data-draw="doc"></span>
+          <h3>Every record in one place</h3>
+          <p>Costs, bills, warranties, receipts and equipment. Bring in your hydro use with Green Button. Share a full home report when you sell.</p>
+        </div>
+        <div class="feature">
+          <span class="draw" data-draw="ask"></span>
+          <h3>Help when something breaks</h3>
+          <p>Describe it or add a photo. Get do-it-yourself steps, a warranty check, or the right trade. Gas smells and floods get safety steps right away.</p>
+        </div>
+        <div class="feature">
+          <span class="draw" data-draw="weather"></span>
+          <h3>Weather alerts</h3>
+          <p>Environment Canada warnings for your home's area, with what to do about them, like clearing snow off vents.</p>
+        </div>
+        <div class="feature">
+          <span class="draw" data-draw="valve"></span>
+          <h3>Emergency info</h3>
+          <p>Where the water, gas and electrical shut-offs are, with photos. Your tenants and family can see it too.</p>
+        </div>
+        <div class="feature">
+          <span class="draw" data-draw="gauge"></span>
+          <h3>A score for your house</h3>
+          <p>One number for how your home is doing, and the few things that would raise it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="year">
+    <div class="wrap block">
+      <header>
+        <h2>Your Ontario year</h2>
+        <p>A taste of what FirstKey reminds you about. Your plan depends on what your home has.</p>
+      </header>
+      <div class="seasons">
+        <div class="season">
+          <h3>Winter <small>Dec to Feb</small></h3>
+          <ul>
+            <li><span class="draw" data-draw="furnace"></span><div><b>Change furnace filter</b><span>Every 3 months</span></div></li>
+            <li><span class="draw" data-draw="hrv"></span><div><b>Clean HRV filters</b><span>Every 3 months</span></div></li>
+            <li><span class="draw" data-draw="sump"></span><div><b>Test sump pump</b><span>Every 3 months</span></div></li>
+            <li><span class="draw" data-draw="smoke"></span><div><b>Test smoke and CO alarms</b><span>Every month</span></div></li>
+          </ul>
+        </div>
+        <div class="season">
+          <h3>Spring <small>Mar to May</small></h3>
+          <ul>
+            <li><span class="draw" data-draw="taps"></span><div><b>Outdoor taps back on</b><span class="when">Apr 20</span></div></li>
+            <li><span class="draw" data-draw="ac"></span><div><b>AC service</b><span class="when">May 1</span></div></li>
+            <li><span class="draw" data-draw="roof"></span><div><b>Inspect roof and shingles</b><span class="when">May 15</span></div></li>
+            <li><span class="draw" data-draw="sump"></span><div><b>Test sump pump</b><span>Before the spring melt</span></div></li>
+          </ul>
+        </div>
+        <div class="season">
+          <h3>Summer <small>Jun to Aug</small></h3>
+          <ul>
+            <li><span class="draw" data-draw="deck"></span><div><b>Seal the deck</b><span>Every 2 years</span></div></li>
+            <li><span class="draw" data-draw="dryer"></span><div><b>Clean dryer vent</b><span>Twice a year</span></div></li>
+            <li><span class="draw" data-draw="windows"></span><div><b>Re-caulk windows and doors</b><span>Every 2 years</span></div></li>
+            <li><span class="draw" data-draw="heater"></span><div><b>Flush water heater</b><span>Once a year</span></div></li>
+          </ul>
+        </div>
+        <div class="season">
+          <h3>Fall <small>Sep to Nov</small></h3>
+          <ul>
+            <li><span class="draw" data-draw="furnace"></span><div><b>Furnace tune-up</b><span class="when">Sep 15</span></div></li>
+            <li><span class="draw" data-draw="taps"></span><div><b>Shut off and drain outdoor taps</b><span class="when">Oct 20</span></div></li>
+            <li><span class="draw" data-draw="gutters"></span><div><b>Clean gutters and downspouts</b><span>Twice a year</span></div></li>
+            <li><span class="draw" data-draw="smoke"></span><div><b>Test smoke and CO alarms</b><span>Every month</span></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="new-homes" class="band">
+    <div class="wrap block">
+      <header>
+        <h2>Bought a new build?</h2>
+        <p>Ontario's new-home warranty from Tarion has deadlines that are easy to miss. Add your possession date and FirstKey reminds you before each form closes.</p>
+      </header>
+      <ol class="tarion">
+        <li><h3>30-Day Form</h3><p>Due in your first 30 days in the home.</p></li>
+        <li><h3>Year-End Form</h3><p>Due in the last 30 days of your first year.</p></li>
+        <li><h3>Second-Year Form</h3><p>Due in the last 30 days of your second year.</p></li>
+      </ol>
+      <p style="color: var(--muted); max-width: 60ch;">Keep a list of problems as you find them, so each form is quick to fill in. When something looks like a builder defect, the helper tells you to log it for the warranty before paying for a repair.</p>
+    </div>
+  </section>
+
+  <section id="rentals">
+    <div class="wrap block">
+      <header>
+        <h2>For landlords, tenants and local pros</h2>
+        <p>One place for the people who look after a home.</p>
+      </header>
+      <div class="split">
+        <div class="who">
+          <span class="draw" data-draw="house"></span>
+          <h3>Landlords</h3>
+          <ul>
+            <li>Invite tenants with a code</li>
+            <li>Get repair requests with photos</li>
+            <li>Send entry notices with at least 24 hours' warning, between 8 a.m. and 8 p.m., as Ontario's rules require</li>
+            <li>Message tenants and give them simple tasks</li>
+          </ul>
+        </div>
+        <div class="who">
+          <span class="draw" data-draw="key"></span>
+          <h3>Tenants</h3>
+          <ul>
+            <li>Join with the code from your landlord</li>
+            <li>Send a repair request with a photo</li>
+            <li>See notices, messages and where the shut-offs are</li>
+            <li>Ask the helper what to try before calling</li>
+          </ul>
+        </div>
+        <div class="who" id="pros">
+          <span class="draw" data-draw="wrench"></span>
+          <h3>Pros and stores</h3>
+          <ul>
+            <li>Pros get bookings from homeowners nearby</li>
+            <li>Send "on the way" updates and invoices with HST</li>
+            <li>Stores post deals and redeem coupon codes in store</li>
+            <li>We check licence details before a pro is listed</li>
+          </ul>
+        </div>
+      </div>
+      <div class="join">
+        <h3>Run a trade or a store?</h3>
+        <p>Sign up in the FirstKey app under Account, then Business. Tell us your trade, the towns you serve and your licence, for example TSSA gas, 306A plumber or 309A electrician.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="sos" class="band">
+    <div class="wrap block">
+      <div class="sos">
+        <header style="display: grid; gap: 10px;">
+          <h2>Ready for the bad day</h2>
+          <p style="color: var(--muted); font-size: 1.1rem;">Save where the main water shut-off, gas shut-off and electrical panel are, with a photo of each. Anyone in the home can find them fast.</p>
+        </header>
+        <div class="alert">
+          <h3>Smell gas, fire or a CO alarm?</h3>
+          <p>Get everyone out first. Then call 911, and your gas company, from outside. FirstKey helps you prepare. It doesn't replace 911.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="wrap block">
+      <header>
+        <h2>Your information stays yours</h2>
+      </header>
+      <ul class="promise">
+        <li><span>Stored in Canada, in Montréal, and encrypted.</span></li>
+        <li><span>Never sold. No ads, and no tracking across other apps.</span></li>
+        <li><span>Stores never see your name or address.</span></li>
+        <li><span>A pro sees your address only for a job you book with them.</span></li>
+        <li><span>Photos lose their location data before they leave your phone.</span></li>
+        <li><span>Delete your account in the app at any time.</span></li>
+      </ul>
+      <p><a href="privacy.html">Read the full privacy policy</a></p>
+    </div>
+  </section>
+
+  <section id="help" class="band">
+    <div class="wrap block">
+      <header>
+        <h2>Help</h2>
+      </header>
+      <div class="faq">
+        <details>
+          <summary>Is FirstKey free?</summary>
+          <p>Yes, for homeowners. Plans for landlords with several homes and for property managers are coming. You'll always see the price before you pay anything.</p>
+        </details>
+        <details>
+          <summary>When can I get it?</summary>
+          <p>FirstKey is coming soon to the App Store and Google Play.</p>
+        </details>
+        <details>
+          <summary>I forgot my password.</summary>
+          <p>On the sign-in screen, tap "Forgot password?". We email you a 6-digit code to set a new one.</p>
+        </details>
+        <details>
+          <summary>My tenant's invite code doesn't work.</summary>
+          <p>Each code works once. Ask your landlord to send a new invite from the Tenants tab.</p>
+        </details>
+        <details>
+          <summary>I'm not getting reminders.</summary>
+          <p>Check that notifications for FirstKey are on in your phone's settings. You can also pick a maintenance day in the app, so reminders come on the day that suits you.</p>
+        </details>
+        <details>
+          <summary>How do I delete my account?</summary>
+          <p>In the app, go to Account, then Privacy &amp; security, then Delete my account. <a href="delete-account.html">See what gets deleted</a>.</p>
+        </details>
+      </div>
+      <div style="display: grid; gap: 6px;">
+        <h3>Contact us</h3>
+        <p id="contact">Email <a class="contact" href="mailto:firstkeyhelp@gmail.com">firstkeyhelp@gmail.com</a>.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <nav aria-label="Site">
+      <a href="privacy.html">Privacy policy</a>
+      <a href="terms.html">Terms of use</a>
+      <a href="delete-account.html">Delete your account</a>
+      <a href="#help">Help</a>
+    </nav>
+    <p>FirstKey is not part of, or endorsed by, Tarion, Environment Canada or any utility.</p>
+    <p>© 2026 FirstKey · Made in Ontario</p>
+  </div>
+</footer>
+
+<script>
+  // The app's line drawings, on a 48 by 48 grid. Lines use the text colour; ".f" is the soft fill.
+  const D = {
+    house: '<path d="M6 22L24 7l18 15"/><path class="f" d="M10 19v23h28V19"/><rect x="20" y="28" width="8" height="14"/><rect x="14" y="23" width="5" height="5"/><rect x="29" y="23" width="5" height="5"/>',
+    furnace: '<rect class="f" x="12" y="6" width="24" height="36" rx="2"/><line x1="12" y1="18" x2="36" y2="18"/><path d="M17 24h14M17 28h14M17 32h14"/><path d="M22 6V2M26 6V2"/><circle class="dot" cx="30" cy="12" r="2"/>',
+    hrv: '<rect class="f" x="8" y="14" width="32" height="22" rx="2"/><circle cx="18" cy="25" r="5"/><circle cx="30" cy="25" r="5"/><path d="M18 14V6M30 14V6M18 36v6M30 36v6"/>',
+    sump: '<path d="M6 20h36"/><path class="f" d="M12 20v20h24V20"/><path d="M14 32c3-2 5 2 8 0s5 2 8 0 3-1 4 0"/><rect x="20" y="10" width="8" height="16" rx="2"/><path d="M24 10V4h10"/>',
+    heater: '<rect class="f" x="13" y="8" width="22" height="34" rx="11"/><path d="M19 4v6M29 4v6"/><path d="M24 22c-3 4-3 7 0 8 3-1 3-4 0-8z"/><path d="M17 42v3M31 42v3"/>',
+    taps: '<rect class="f" x="4" y="10" width="8" height="30"/><path d="M12 22h16a6 6 0 0 1 6 6v4"/><path d="M20 22v-6M15 14h10"/><path d="M34 36v2M31 41l-1 2M37 41l1 2"/>',
+    gutters: '<path d="M4 22L24 8l20 14"/><path class="f" d="M6 24h36v4a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3z"/><path d="M36 31v13M32 44h8"/><path d="M14 36v2M18 39v2"/>',
+    dryer: '<rect class="f" x="9" y="6" width="30" height="36" rx="3"/><path d="M9 14h30"/><circle cx="24" cy="28" r="9"/><path d="M20 27c2-2 6 2 8 0"/><circle class="dot" cx="15" cy="10" r="1.5"/><circle class="dot" cx="20" cy="10" r="1.5"/>',
+    smoke: '<circle class="f" cx="24" cy="20" r="14"/><circle cx="24" cy="20" r="5"/><path d="M12 38c2-3 6-3 8 0M28 38c2-3 6-3 8 0"/><circle class="dot" cx="33" cy="12" r="1.5"/>',
+    ac: '<rect class="f" x="6" y="10" width="36" height="28" rx="3"/><circle cx="22" cy="24" r="9"/><path d="M22 15v18M13 24h18M16 18l12 12M28 18L16 30"/><path d="M36 16v16"/><path d="M10 38v4M38 38v4"/>',
+    deck: '<path d="M4 30h40"/><rect class="f" x="6" y="30" width="36" height="6"/><path d="M10 36v8M38 36v8M24 36v8"/><path d="M8 30V16M16 30V16M24 30V16M32 30V16M40 30V16M6 16h36"/>',
+    roof: '<path class="f" d="M4 26L24 8l20 18"/><path d="M10 21h6M14 17h6M28 17h6M32 21h6M20 13h8"/><path d="M10 26v16h28V26"/><path d="M34 14V6h4v12"/>',
+    windows: '<rect class="f" x="8" y="6" width="32" height="34" rx="1"/><path d="M24 6v34M8 23h32"/><path d="M4 42h40"/><path d="M13 11l5 5M29 11l5 5"/>',
+    calendar: '<rect class="f" x="6" y="9" width="36" height="33" rx="3"/><path d="M6 18h36M15 5v8M33 5v8"/><path d="M14 26h4M22 26h4M30 26h4M14 33h4M22 33h4"/><path d="M29 33l3 3 6-7"/>',
+    doc: '<path class="f" d="M11 4h18l9 9v31H11z"/><path d="M29 4v9h9"/><path d="M16 22h16M16 28h16M16 34h10"/>',
+    ask: '<path class="f" d="M8 8h32a3 3 0 0 1 3 3v20a3 3 0 0 1-3 3H22l-9 8v-8H8a3 3 0 0 1-3-3V11a3 3 0 0 1 3-3z"/><path d="M19 17a5 5 0 1 1 6 5c-1 .4-1 1-1 2.5"/><circle class="dot" cx="24" cy="29" r="1.6"/>',
+    weather: '<circle class="sun" cx="30" cy="16" r="7"/><path class="ray" d="M30 4v3M41 16h3M38 8l2-2M19 8l2 2"/><path class="f" transform="translate(-2 4)" d="M14 36a8 8 0 0 1 0-16 11 11 0 0 1 21-2 8 8 0 0 1 1 16z"/>',
+    valve: '<circle class="f" cx="24" cy="17" r="12"/><path d="M24 5v24M12 17h24M15.5 8.5l17 17M32.5 8.5l-17 17"/><circle cx="24" cy="17" r="3"/><path d="M24 29v5M6 38h36M6 44h36M6 38v6M42 38v6"/>',
+    gauge: '<path class="f" d="M6 36a18 18 0 0 1 36 0z"/><path d="M24 36l9-11"/><circle class="dot" cx="24" cy="36" r="2.5"/><path d="M9 30l-2-1M39 30l2-1M13 21l-1.5-1.5M35 21l1.5-1.5M24 16v-2"/>',
+    key: '<circle class="f" cx="15" cy="24" r="10"/><circle cx="15" cy="24" r="3.5"/><path d="M25 24h18M36 24v6M42 24v5"/>',
+    wrench: '<path class="f" d="M31 5a10 10 0 0 0-9 13L7 33a4.5 4.5 0 0 0 6.4 6.4L28.4 24.5A10 10 0 0 0 42 15l-6 6-6-2-2-6 6-6z"/>'
+  };
+  document.querySelectorAll('[data-draw]').forEach((el) => {
+    const d = D[el.dataset.draw];
+    if (d) el.innerHTML = '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">' + d + '</svg>';
+  });
+</script>
+
+</body>
+</html>
