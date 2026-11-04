@@ -1,0 +1,21 @@
+name: Peek recalls data
+on: workflow_dispatch
+jobs:
+  peek:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl -sSL -o r.json https://recalls-rappels.canada.ca/sites/default/files/opendata-donneesouvertes/HCRSAMOpenData.json
+          ls -la r.json
+          python3 - <<'PY'
+          import json, collections
+          d = json.load(open('r.json'))
+          print(type(d).__name__, (list(d.keys())[:10] if isinstance(d, dict) else len(d)))
+          rows = d if isinstance(d, list) else next(v for v in d.values() if isinstance(v, list))
+          print('rows', len(rows)); print(json.dumps(rows[0], ensure_ascii=False)[:1500])
+          for k in rows[0]:
+              c = collections.Counter(str(r.get(k))[:40] for r in rows).most_common(6)
+              print(k, c)
+          hits = [r for r in rows if 'furnace' in json.dumps(r).lower() or 'water heater' in json.dumps(r).lower()]
+          print('furnace/water heater hits', len(hits)); print(json.dumps(hits[:2], ensure_ascii=False)[:2500])
+          PY
