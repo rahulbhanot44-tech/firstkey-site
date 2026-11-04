@@ -14,7 +14,7 @@ WORDS = ['furnace', 'boiler', 'water heater', 'hot water', 'air conditioner', 'a
 PAT = re.compile(r'\b(' + '|'.join(re.escape(w) for w in WORDS) + r')s?\b', re.I)
 
 def clean(s):
-    s = html.unescape(re.sub(r'<[^>]+>', ' ', s or ''))
+    s = html.unescape(re.sub(r'<[^>]+>', ' ', s or '')).replace('\u200b', '').replace('\xa0', ' ')
     return re.sub(r'\s+', ' ', s).strip()
 
 with urllib.request.urlopen(SRC, timeout=120) as r:
